@@ -27,8 +27,23 @@ function ManageCoursePage({
     }
     //eslint-disable-next-line
   }, []);
+  function handleChange(event) {
+    const { name, value } = event.target;
+    console.log(name, value);
+    setCourse((prevCourse) => ({
+      ...prevCourse,
+      [name]: name === 'authorID' ? parseInt(value, 10) : value
+    }));
+  }
 
-  return <CourseForm course={course} errors={errors} authors={authors} />;
+  return (
+    <CourseForm
+      course={course}
+      errors={errors}
+      authors={authors}
+      onChange={handleChange}
+    />
+  );
 }
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
