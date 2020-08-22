@@ -9,14 +9,16 @@ import CourseList from './CourseList';
 export class CoursesPage extends Component {
   componentDidMount() {
     const { courses, authors, actions } = this.props;
+    if (authors.length === 0) {
+      console.log('we are here');
+      actions.loadAuthors().catch((error) => {
+        console.error(error);
+        alert('Fetching authors failed' + error);
+      });
+    }
     if (courses.length === 0) {
       actions.loadCourses().catch((error) => {
         alert('Fetching courses failes' + error);
-      });
-    }
-    if (authors.length === 0) {
-      actions.loadAuthors().catch((error) => {
-        alert('Fetching authors failed' + error);
       });
     }
   }
@@ -34,6 +36,15 @@ CoursesPage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 function mapStateToProps(state) {
+  // function getAuthorName(authors, course) {
+  //   for (let i = 0; i < authors.length; i++) {
+  //     if (authors[i].id == course.authorId) {
+  //       console.log(authors[i].name);
+  //       return authors[i].name;
+  //     } else console.log(course.authorId === authors[2].id);
+  //     return authors[2].name;
+  //   }
+  // }
   return {
     courses:
       state.authors.length === 0
@@ -41,11 +52,11 @@ function mapStateToProps(state) {
         : state.courses.map((course) => {
             return {
               ...course,
-              authorName: state.authors.find(
-                (author) => author.id === course.authorId
-              ).name
+              authorName: state.authors.find((a) => a.id === course.authorId)
+                .name
             };
           }),
+    // courses: state.courses,
     authors: state.authors
   };
 }
