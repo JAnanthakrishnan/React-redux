@@ -56,7 +56,7 @@ function mapDispatchToProps(dispatch) {
     // actions: bindActionCreators(courseActions, dispatch)
     actions: {
       loadCourses: bindActionCreators(courseActions.loadCourses, dispatch),
-      loadAuthors: bindActionCreators(authorActions.laodAuthors, dispatch)
+      loadAuthors: bindActionCreators(authorActions.loadAuthors, dispatch)
     }
   };
 }

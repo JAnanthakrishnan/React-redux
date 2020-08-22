@@ -4,7 +4,7 @@ import * as authorApi from '../../api/authorApi';
 export function loadAuthorsSuccess(authors) {
   return { type: types.LOAD_AUTHORS_SUCCESS, authors };
 }
-export function laodAuthors() {
+export function loadAuthors() {
   return function (dispatch) {
     return authorApi
       .getAuthors()
