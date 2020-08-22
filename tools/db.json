@@ -72,11 +72,11 @@
     },
     {
       "id": 11,
-      "title": "New Course",
-      "authorId": 3,
-      "category": "New Course",
-      "createdAt": 1598107722155,
-      "slug": "new-course"
+      "title": "another one",
+      "authorId": 2,
+      "category": "tesing continue",
+      "createdAt": 1598109133619,
+      "slug": "another-one"
     }
   ],
   "authors": [
