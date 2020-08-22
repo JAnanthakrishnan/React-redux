@@ -14,6 +14,7 @@ export class CoursesPage extends Component {
   };
   componentDidMount() {
     const { courses, authors, actions } = this.props;
+
     if (authors.length === 0) {
       console.log('we are here');
       actions.loadAuthors().catch((error) => {
@@ -33,32 +34,31 @@ export class CoursesPage extends Component {
       <>
         {this.state.redirectToAddCoursePage && <Redirect to='/course' />}
         <h2>Courses</h2>
-        <Spinner />
-        <button
-          style={{ marginBottom: '20px' }}
-          className='btn btn-primary add-course'
-          onClick={() => this.setState({ redirectToAddCoursePage: true })}
-        >
-          Add Course
-        </button>
-        <CourseList courses={this.props.courses} />
+        {this.props.loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <button
+              style={{ marginBottom: '20px' }}
+              className='btn btn-primary add-course'
+              onClick={() => this.setState({ redirectToAddCoursePage: true })}
+            >
+              Add Course
+            </button>
+            <CourseList courses={this.props.courses} />
+          </>
+        )}
       </>
     );
   }
 }
 CoursesPage.propTypes = {
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  courses: PropTypes.array.isRequired,
+  authors: PropTypes.array.isRequired
 };
 function mapStateToProps(state) {
-  // function getAuthorName(authors, course) {
-  //   for (let i = 0; i < authors.length; i++) {
-  //     if (authors[i].id == course.authorId) {
-  //       console.log(authors[i].name);
-  //       return authors[i].name;
-  //     } else console.log(course.authorId === authors[2].id);
-  //     return authors[2].name;
-  //   }
-  // }
   return {
     courses:
       state.authors.length === 0
@@ -70,8 +70,9 @@ function mapStateToProps(state) {
                 .name
             };
           }),
-    // courses: state.courses,
-    authors: state.authors
+
+    authors: state.authors,
+    loading: state.apiCallStatus > 0
   };
 }
 // !third way of dispatching actions
