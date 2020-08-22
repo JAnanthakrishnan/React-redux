@@ -4,7 +4,7 @@ import * as courseActions from '../../redux/actions/courseActions';
 import * as authorActions from '../../redux/actions/authorActions';
 import PropTypes from 'prop-types';
 import CourseForm from './CourseForm';
-import { newCourse } from '../../../tools/mockData';
+import { newCourse } from '../utils/mockData';
 function ManageCoursePage({
   courses,
   authors,
